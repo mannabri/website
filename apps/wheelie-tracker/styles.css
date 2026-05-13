@@ -1,0 +1,890 @@
+/* ====================================================================
+   WHEELIE TRACKER — App Landing Page Stylesheet
+   Mobile-first CSS — breakpoints: 640 px (sm), 768 px (md), 1024 px (lg)
+   ==================================================================== */
+
+
+/* ====================================================================
+   1. CSS CUSTOM PROPERTIES
+   ==================================================================== */
+:root {
+  /* Brand colours */
+  --clr-accent:       #ff9f0a;   /* iOS orange */
+  --clr-accent-dark:  #e88f00;
+  --clr-bg:           #f9fafb;
+  --clr-surface:      #ffffff;
+  --clr-dark:         #111827;
+  --clr-dark-2:       #1c1c1e;   /* iOS near-black */
+  --clr-muted:        #6b7280;
+  --clr-subtle:       #e5e7eb;
+  --clr-text:         #1f2937;
+  --clr-text-inv:     #ffffff;
+
+  /* Typography */
+  --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-size-base: 1rem;
+  --line-height: 1.65;
+
+  /* Spacing scale */
+  --sp-1:  0.25rem;
+  --sp-2:  0.5rem;
+  --sp-3:  0.75rem;
+  --sp-4:  1rem;
+  --sp-5:  1.25rem;
+  --sp-6:  1.5rem;
+  --sp-8:  2rem;
+  --sp-12: 3rem;
+  --sp-16: 4rem;
+  --sp-20: 5rem;
+
+  /* Layout */
+  --container-max: 1120px;
+  --container-pad: 1.25rem;
+
+  /* Borders */
+  --radius:    12px;
+  --radius-sm: 8px;
+
+  /* Motion */
+  --transition: 200ms ease;
+}
+
+
+/* ====================================================================
+   2. RESET / BASE
+   ==================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Respect user reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  font-family: var(--font);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height);
+  color: var(--clr-text);
+  background-color: var(--clr-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+  border: none;
+  background: transparent;
+}
+
+
+/* ====================================================================
+   3. ACCESSIBILITY UTILITIES
+   ==================================================================== */
+
+/* Skip link — visually hidden until it receives focus */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--sp-4);
+  z-index: 9999;
+  padding: var(--sp-2) var(--sp-5);
+  background: var(--clr-accent);
+  color: var(--clr-dark-2);
+  font-weight: 700;
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  transition: top var(--transition);
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Visually hidden utility — readable by assistive tech */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Consistent focus ring for all interactive elements */
+:focus-visible {
+  outline: 3px solid var(--clr-accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+
+/* ====================================================================
+   4. LAYOUT
+   ==================================================================== */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+
+/* ====================================================================
+   5. BUTTONS
+   ==================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-3) var(--sp-6);
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  transition:
+    background var(--transition),
+    color var(--transition),
+    transform var(--transition),
+    box-shadow var(--transition);
+}
+
+.btn-primary {
+  background: var(--clr-accent);
+  color: var(--clr-dark-2);
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background: var(--clr-accent-dark);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--clr-accent);
+  border: 2px solid var(--clr-accent);
+  padding: calc(var(--sp-3) - 2px) calc(var(--sp-6) - 2px);
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus-visible {
+  background: var(--clr-accent);
+  color: var(--clr-dark-2);
+}
+
+/* Coming Soon badge */
+.coming-soon-badge {
+  display: inline-block;
+  background: var(--clr-accent);
+  color: #000;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: var(--sp-3);
+}
+
+/* App Store badge button */
+.btn-app-store {
+  display: inline-block;
+  border-radius: 10px;
+  transition: opacity var(--transition), transform var(--transition);
+}
+
+.btn-app-store:hover,
+.btn-app-store:focus-visible {
+  opacity: 0.85;
+  transform: translateY(-2px);
+}
+
+.appstore-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  background: #000000;
+  color: #ffffff;
+  padding: 10px 18px;
+  border-radius: 10px;
+  min-width: 160px;
+}
+
+.apple-glyph {
+  flex-shrink: 0;
+}
+
+.appstore-label {
+  display: flex;
+  flex-direction: column;
+}
+
+.appstore-dl {
+  font-size: 0.6875rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+}
+
+.appstore-name {
+  font-size: 1.1875rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+
+/* ====================================================================
+   6. HEADER / NAV
+   ==================================================================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--clr-dark-2);
+  color: var(--clr-text-inv);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.header-inner {
+  position: relative;   /* anchor for absolute dropdown */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 3.5rem;   /* 56 px */
+  gap: var(--sp-4);
+}
+
+/* Logotype */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  color: var(--clr-text-inv);
+  font-weight: 700;
+  font-size: 1.0625rem;
+  flex-shrink: 0;
+}
+
+.logo-icon {
+  color: var(--clr-accent);
+  border-radius: 22%;
+  flex-shrink: 0;
+}
+
+/* Mobile nav toggle */
+.nav-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  color: var(--clr-text-inv);
+  border-radius: var(--radius-sm);
+  transition: background var(--transition);
+}
+
+.nav-toggle:hover,
+.nav-toggle:focus-visible {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Hamburger icon (three bars → X via [aria-expanded="true"]) */
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+  transition: transform var(--transition), opacity var(--transition);
+}
+
+.hamburger {
+  position: relative;
+}
+
+.hamburger::before,
+.hamburger::after {
+  content: '';
+  position: absolute;
+  left: 0;
+}
+
+.hamburger::before { top: -6px; }
+.hamburger::after  { top:  6px; }
+
+[aria-expanded="true"] .hamburger              { background: transparent; }
+[aria-expanded="true"] .hamburger::before      { transform: translateY(6px)  rotate(45deg);  }
+[aria-expanded="true"] .hamburger::after       { transform: translateY(-6px) rotate(-45deg); }
+
+/* Primary nav — hidden on mobile by default */
+.primary-nav {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--clr-dark-2);
+  border-top:    1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: var(--sp-4) var(--container-pad);
+}
+
+.primary-nav.is-open {
+  display: block;
+}
+
+.primary-nav ul {
+  display: flex;
+  flex-direction: column;
+}
+
+.primary-nav a {
+  display: block;
+  padding: var(--sp-3) 0;
+  color: var(--clr-text-inv);
+  font-size: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  transition: color var(--transition);
+}
+
+.primary-nav a:hover {
+  color: var(--clr-accent);
+}
+
+.nav-cta {
+  display: none;  /* shown only on wider screens (see media query below) */
+}
+
+
+/* ====================================================================
+   7. HERO
+   ==================================================================== */
+.hero {
+  background: var(--clr-dark-2);
+  color: var(--clr-text-inv);
+  padding: var(--sp-12) 0 var(--sp-16);
+}
+
+.hero-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-8);
+  text-align: center;
+}
+
+.hero-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-4);
+  max-width: 600px;
+}
+
+/* App icon placeholder (replace SVG with real icon image) */
+.hero-app-icon {
+  width: 100px;
+  height: 100px;
+  border-radius: 22%;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+}
+
+.hero-app-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 6vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+
+.hero-tagline {
+  font-size: clamp(1rem, 3vw, 1.25rem);
+  color: var(--clr-accent);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.hero-desc {
+  font-size: 0.9375rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.75;
+}
+
+/* Hero device mockup */
+.hero-device {
+  width: 100%;
+  max-width: 200px;
+}
+
+.phone-svg {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 24px 48px rgba(0, 0, 0, 0.55));
+}
+
+
+/* ====================================================================
+   8. SHARED SECTION CHROME
+   ==================================================================== */
+.section-value,
+.section-features,
+.section-screenshots,
+.section-safety,
+.section-privacy {
+  padding: var(--sp-16) 0;
+}
+
+.section-value    h2,
+.section-features h2,
+.section-screenshots h2,
+.section-safety   h2,
+.section-privacy  h2 {
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  margin-bottom: var(--sp-4);
+}
+
+.section-intro {
+  color: var(--clr-muted);
+  margin-bottom: var(--sp-8);
+}
+
+
+/* ====================================================================
+   9. VALUE PROPOSITION
+   ==================================================================== */
+.section-value {
+  background: var(--clr-surface);
+  text-align: center;
+}
+
+.section-value .container {
+  max-width: 720px;
+}
+
+.section-value p {
+  font-size: 1.0625rem;
+  color: var(--clr-muted);
+  line-height: 1.8;
+}
+
+
+/* ====================================================================
+   10. FEATURES
+   ==================================================================== */
+.section-features {
+  background: var(--clr-bg);
+}
+
+.section-features h2 {
+  text-align: center;
+  margin-bottom: var(--sp-8);
+}
+
+/* Grid: 1 column → 2 columns (640 px) → 3 columns (1024 px) */
+.feature-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-4);
+}
+
+.feature-card {
+  background: var(--clr-surface);
+  border-radius: var(--radius);
+  padding: var(--sp-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.feature-card:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.feature-icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+}
+
+.feature-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--clr-dark);
+}
+
+.feature-card p {
+  font-size: 0.9375rem;
+  color: var(--clr-muted);
+  line-height: 1.6;
+}
+
+
+/* ====================================================================
+   11. SCREENSHOTS
+   ==================================================================== */
+.section-screenshots {
+  background: var(--clr-dark-2);
+  color: var(--clr-text-inv);
+}
+
+.section-screenshots h2,
+.section-screenshots .section-intro {
+  text-align: center;
+}
+
+.section-screenshots .section-intro {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Horizontal scroll on mobile; grid on larger screens */
+.screenshot-track {
+  display: flex;
+  gap: var(--sp-5);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: var(--sp-4);
+  /* Thin custom scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+.screenshot-track::-webkit-scrollbar        { height: 4px; }
+.screenshot-track::-webkit-scrollbar-track  { background: transparent; }
+.screenshot-track::-webkit-scrollbar-thumb  { background: rgba(255, 255, 255, 0.2); border-radius: 2px; }
+
+.screenshot-item {
+  scroll-snap-align: start;
+  flex: 0 0 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.phone-frame {
+  width: 200px;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+}
+
+.phone-frame svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.screenshot-item figcaption {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+  max-width: 200px;
+}
+
+
+/* ====================================================================
+   12. SAFETY NOTICE
+   ==================================================================== */
+.section-safety {
+  background: #fffbeb;
+  border-top:    3px solid #f59e0b;
+  border-bottom: 3px solid #f59e0b;
+}
+
+.section-safety .container {
+  max-width: 760px;
+  text-align: center;
+}
+
+.safety-icon {
+  margin: 0 auto var(--sp-4);
+}
+
+.section-safety h2 {
+  color: #92400e;
+}
+
+.section-safety p {
+  font-size: 0.9375rem;
+  color: #78350f;
+  line-height: 1.8;
+}
+
+
+/* ====================================================================
+   13. PRIVACY
+   ==================================================================== */
+.section-privacy {
+  background: var(--clr-surface);
+}
+
+.section-privacy .container {
+  max-width: 720px;
+  text-align: center;
+}
+
+.privacy-icon {
+  margin: 0 auto var(--sp-4);
+  color: var(--clr-muted);
+}
+
+.section-privacy p {
+  font-size: 0.9375rem;
+  color: var(--clr-muted);
+  line-height: 1.8;
+  margin-bottom: var(--sp-6);
+}
+
+
+/* ====================================================================
+   14. FOOTER
+   ==================================================================== */
+.site-footer {
+  background: var(--clr-dark-2);
+  color: rgba(255, 255, 255, 0.5);
+  padding: var(--sp-8) 0;
+}
+
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-4);
+  text-align: center;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--sp-2) var(--sp-3);
+}
+
+.footer-links a {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.875rem;
+  transition: color var(--transition);
+}
+
+.footer-links a:hover,
+.footer-links a:focus-visible {
+  color: var(--clr-accent);
+}
+
+.footer-sep {
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 0.875rem;
+  user-select: none;
+}
+
+.footer-copy {
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+
+/* ====================================================================
+   15. RESPONSIVE — SMALL (640 px+)
+   ==================================================================== */
+@media (min-width: 40em) {
+  .feature-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Wrap screenshot strip into a centred flex wrap on small tablets */
+  .screenshot-track {
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow-x: visible;
+    scroll-snap-type: none;
+  }
+
+  .screenshot-item {
+    flex: 0 0 180px;
+  }
+}
+
+
+/* ====================================================================
+   16. RESPONSIVE — TABLET (768 px+)
+   ==================================================================== */
+@media (min-width: 48em) {
+
+  /* Show navigation inline; hide the mobile toggle */
+  .nav-toggle {
+    display: none;
+  }
+
+  /* Override both the default (display:none) and the .is-open state */
+  .primary-nav,
+  .primary-nav.is-open {
+    display: flex;
+    position: static;
+    background: transparent;
+    border: none;
+    padding: 0;
+    flex: 1;
+    justify-content: flex-end;
+  }
+
+  .primary-nav ul {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--sp-2);
+  }
+
+  .primary-nav a {
+    padding: var(--sp-2) var(--sp-3);
+    border-bottom: none;
+    font-size: 0.9375rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .nav-cta {
+    display: flex;
+    margin-left: var(--sp-2);
+  }
+
+  .nav-cta .btn {
+    padding: var(--sp-2) var(--sp-4);
+    font-size: 0.875rem;
+  }
+
+  /* Hero: side-by-side layout */
+  .hero-inner {
+    flex-direction: row;
+    text-align: left;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .hero-text {
+    align-items: flex-start;
+    flex: 1;
+    max-width: 520px;
+  }
+
+  .hero-device {
+    flex-shrink: 0;
+    max-width: 220px;
+  }
+}
+
+
+/* ====================================================================
+   17. RESPONSIVE — DESKTOP (1024 px+)
+   ==================================================================== */
+@media (min-width: 64em) {
+  :root {
+    --container-pad: 2rem;
+  }
+
+  .hero {
+    padding: var(--sp-20) 0;
+  }
+
+  .hero-app-icon {
+    width: 120px;
+    height: 120px;
+  }
+
+  .hero-device {
+    max-width: 260px;
+  }
+
+  .feature-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Screenshots: 5-column grid on desktop, no horizontal scroll */
+  .screenshot-track {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--sp-6);
+    overflow-x: visible;
+    flex-wrap: unset;
+    scroll-snap-type: none;
+  }
+
+  .screenshot-item {
+    flex: none;
+  }
+}
+
+
+/* ====================================================================
+   18. PRINT
+   ==================================================================== */
+@media print {
+  .site-header,
+  .nav-toggle,
+  .btn-app-store,
+  .hero-device,
+  .screenshot-track {
+    display: none;
+  }
+
+  body {
+    color: #000;
+    background: #fff;
+  }
+
+  a::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.8em;
+    color: #555;
+  }
+}
